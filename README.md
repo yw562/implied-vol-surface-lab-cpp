@@ -2,29 +2,6 @@
 A mini quant research lab for building and stress-testing implied volatility surfaces: from Black–Scholes pricing and IV inversion to smile fitting (Polynomial vs SVI), no-arbitrage health checks, and parameter time-series stability.
 ![Smile demo](results/iv_smile_demo.png)
 
-## Usage
-
-Build the C++ binary:
-
-```bash
-mkdir -p build && cd build
-cmake ..
-cmake --build . -j
-
-Run a demo with sample quotes:
-
-./iv_lab ../data/sample_quotes.csv 100 0.5 0.02 put
-
-
-Plot results with Python:
-
-python3 plot_smile.py
-python3 plot_term_structure.py
-python3 svi_fit.py --S 100 --T 0.5
-python3 rolling_stability.py --S 100 --T 0.5 --r 0.02 --n 30
-python3 rolling_stability_smoothed.py --S 100 --T 0.5 --r 0.02 --n 30 --alpha 0.2 --rho_step 0.05
-python3 rolling_stability_controls.py --S 100 --T 0.5 --r 0.02 --n 30 --alpha 0.35 ...
-
 
 ## Mini Term Structure
 
