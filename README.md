@@ -29,3 +29,8 @@ Result: substantial CV reduction across parameters while ATM stays stable.
 Artifacts:
 - `results/svi_params_timeseries_smoothed.png`
 - `data/svi_params_timeseries_smoothed_example.csv`
+
+### Controls tuning (single-expiry)
+- Multi-parameter rate-limits + fallback-to-last-good dropped fallbacks to **5/30**.
+- CVs stay low; **ρ remains the most volatile** parameter → expected due to skew sensitivity.
+- Artifact: `results/svi_params_timeseries_controls.png`, CSV: `data/svi_params_timeseries_controls_example.csv`.
