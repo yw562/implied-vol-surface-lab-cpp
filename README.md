@@ -79,13 +79,22 @@ This tuning mimics production-style calibration, where stability is as important
 - Other parameters smoother while preserving fit accuracy. 
 - Fallbacks limited to ~5/30 → calibration robust without over-correction. 
 > > **Note:**
-> ~5/30 fallbacks is healthy:
-> Too few → unstable fits may slip through.
-> Too many → model becomes over-constrained.
+> The fallback count (≈5/30) indicates that only a handful of calibration steps required rolling back to the last good parameter set.
+> > This mimics production-style workflows where stability is as critical as fit accuracy:
+> > too few fallbacks → risk of unstable fits slipping through;
+> > too many fallbacks → model becomes over-constrained.
+> > Around 5/30 is a healthy balance.
 
-> **What we learned:**
-> How to invert market prices to IV and fit polynomial + SVI smiles.
-> How to run no-arbitrage checks (butterfly convexity).
-> Why parameter stability matters in practice, and how to enforce it.
-> Balancing fit accuracy vs robustness with priors, smoothing, and fallbacks.
-> Hands-on C++ + Python workflow for quant model prototyping.
+## What we learned
+How to invert market option prices into implied volatilities.
+How to fit Polynomial vs SVI smiles and check arbitrage constraints.
+How to evaluate parameter stability across a rolling time series.
+Why stability tuning (priors, EMA smoothing, fallbacks) is critical in practice.
+Practical skills in C++ model prototyping and Python visualization for quant research.
+
+## What we learned
+Extend from single-expiry to a full term structure (SVI / SABR).
+Add real market option data ingestion.
+Explore production-style calibration pipelines with robust monitoring.
+Stress-test under extreme skew / jump scenarios.
+
