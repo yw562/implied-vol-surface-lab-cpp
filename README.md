@@ -67,3 +67,10 @@ This tuning mimics production-style calibration, where stability is as important
 - Other parameters also became smoother while preserving fit accuracy.  
 - Fallbacks were limited to ~5/30, showing the calibration remains robust without over-correction.  
 
+
+> **Note:**  
+> The fallback count (≈5/30) indicates that only a handful of calibration steps required rolling back to the last good parameter set.  
+> This mimics production-style workflows where stability is as critical as fit accuracy:  
+> too few fallbacks → risk of unstable fits slipping through;  
+> too many fallbacks → model becomes over-constrained.  
+> Around 5/30 is a healthy balance.
