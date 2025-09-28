@@ -34,3 +34,21 @@ Artifacts:
 - Multi-parameter rate-limits + fallback-to-last-good dropped fallbacks to **5/30**.
 - CVs stay low; **ρ remains the most volatile** parameter → expected due to skew sensitivity.
 - Artifact: `results/svi_params_timeseries_controls.png`, CSV: `data/svi_params_timeseries_controls_example.csv`.
+
+## Stability Tuning
+
+In practice, raw SVI parameter updates can be noisy, especially for skew (ρ) and shift (m).  
+We introduced two stabilization techniques:
+
+1. **Regularization:** a stronger prior on ρ (and a light anchor on m) to prevent erratic jumps.  
+2. **Fallback logic:** only revert to the last good state when both loss and violation conditions are triggered.
+
+**Results:**  
+- Raw → EMA coefficient of variation (CV) dropped significantly (e.g. ρ: 2.15 → 0.0148 in the controlled run).  
+- Fallbacks remained moderate (~5 out of 30 steps).  
+- Skew volatility was markedly reduced, while other parameters (a, b, σ) stayed stable.
+
+This tuning mimics production-style calibration, where stability is as important as fit quality.
+
+![Stability controls](results/svi_params_timeseries_controls.png)
+
