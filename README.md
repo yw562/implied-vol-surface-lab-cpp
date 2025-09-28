@@ -75,14 +75,17 @@ This tuning mimics production-style calibration, where stability is as important
 | m         | 0.608  | 0.114  |
 | σ (sigma) | 0.226  | 0.0716 |
 
-- **ρ jitter** was drastically reduced (2.15 → 0.0148).  
-- Other parameters also became smoother while preserving fit accuracy.  
-- Fallbacks were limited to ~5/30, showing the calibration remains robust without over-correction.  
+- **ρ jitter** 2.15 → 0.0148 (biggest improvement).
+- Other parameters smoother while preserving fit accuracy. 
+- Fallbacks limited to ~5/30 → calibration robust without over-correction. 
+> > **Note:**
+> ~5/30 fallbacks is healthy:
+> Too few → unstable fits may slip through.
+> Too many → model becomes over-constrained.
 
-
-> **Note:**  
-> The fallback count (≈5/30) indicates that only a handful of calibration steps required rolling back to the last good parameter set.  
-> This mimics production-style workflows where stability is as critical as fit accuracy:  
-> too few fallbacks → risk of unstable fits slipping through;  
-> too many fallbacks → model becomes over-constrained.  
-> Around 5/30 is a healthy balance.
+> **What we learned:**
+> How to invert market prices to IV and fit polynomial + SVI smiles.
+> How to run no-arbitrage checks (butterfly convexity).
+> Why parameter stability matters in practice, and how to enforce it.
+> Balancing fit accuracy vs robustness with priors, smoothing, and fallbacks.
+> Hands-on C++ + Python workflow for quant model prototyping.
