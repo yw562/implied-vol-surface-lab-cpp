@@ -7,6 +7,7 @@
 #include <fstream>
 #include <sstream>
 #include <algorithm>
+#include <cctype>
 
 namespace qx {
 
@@ -109,33 +110,49 @@ inline double implied_vol(double price,double S,double K,double T,double r,bool 
 
 // -------- CSV I/O --------
 struct Quote { double K, price; bool is_call; };
+
+// 更鲁棒：自动跳过表头/注释/非数字行
 inline std::vector<Quote> read_quotes_csv(const std::string& path){
     std::ifstream in(path);
     if(!in) throw std::runtime_error("Cannot open: "+path);
     std::vector<Quote> q;
     std::string line;
+    auto is_numeric = [](const std::string& s){
+        if(s.empty()) return false;
+        char* end=nullptr; std::strtod(s.c_str(), &end); return end!=s.c_str();
+    };
     while(std::getline(in,line)){
+        if(line.empty()) continue;
+        // 左侧 trim
+        line.erase(line.begin(), std::find_if(line.begin(), line.end(),
+            [](unsigned char ch){ return !std::isspace(ch); }));
         if(line.empty() || line[0]=='#') continue;
+
         std::stringstream ss(line);
         std::string sK, sp, st;
         if(!std::getline(ss,sK,',')) continue;
         if(!std::getline(ss,sp,',')) continue;
-        if(!std::getline(ss,st,',')) continue;
+        if(!std::getline(ss,st,',')) st="put";
+
+        if(!is_numeric(sK) || !is_numeric(sp)) continue; // 跳过表头/垃圾行
+
         Quote x;
         x.K = std::stod(sK);
         x.price = std::stod(sp);
-        std::string t = st;
-        std::transform(t.begin(), t.end(), t.begin(), ::tolower);
-        x.is_call = (t.find("call")!=std::string::npos);
+        std::transform(st.begin(), st.end(), st.begin(), ::tolower);
+        x.is_call = (st.find("call")!=std::string::npos);
         q.push_back(x);
     }
     return q;
 }
+
 inline void write_csv(const std::string& path,
                       const std::vector<double>& K,
                       const std::vector<double>& y,
                       const std::string& colname){
     std::ofstream out(path);
+    if(!out) throw std::runtime_error("Cannot write: "+path);
+    // 写表头，方便下游工具
     out << "Strike," << colname << "\n";
     for(size_t i=0;i<K.size();++i){
         if(std::isnan(y[i])) continue;
