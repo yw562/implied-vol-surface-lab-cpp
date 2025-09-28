@@ -52,3 +52,18 @@ This tuning mimics production-style calibration, where stability is as important
 
 ![Stability controls](results/svi_params_timeseries_controls.png)
 
+
+### Stability Tuning: CV Comparison
+
+| Parameter | Raw CV | EMA CV |
+|-----------|--------|--------|
+| a         | 0.64   | 0.246  |
+| b         | 0.212  | 0.0421 |
+| ρ (rho)   | 2.15   | 0.0148 |
+| m         | 0.608  | 0.114  |
+| σ (sigma) | 0.226  | 0.0716 |
+
+- **ρ jitter** was drastically reduced (2.15 → 0.0148).  
+- Other parameters also became smoother while preserving fit accuracy.  
+- Fallbacks were limited to ~5/30, showing the calibration remains robust without over-correction.  
+
