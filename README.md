@@ -22,3 +22,10 @@ Key takeaways in our demo:
 - **b, σ** are reasonably stable; **ρ** is the jumpiest (wing asymmetry + parameter coupling).
 - **Discrete butterfly QC** on reconstructed call prices passes (no violations).
 
+
+## Rolling stability — smoothed controls
+We add EMA smoothing (α=0.2) and a per-step rate limit on ρ (±0.05).
+Result: substantial CV reduction across parameters while ATM stays stable.
+Artifacts:
+- `results/svi_params_timeseries_smoothed.png`
+- `data/svi_params_timeseries_smoothed_example.csv`
