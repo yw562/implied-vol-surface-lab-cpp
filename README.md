@@ -92,7 +92,7 @@ This tuning mimics production-style calibration, where stability is as important
 - Why stability tuning (priors, EMA smoothing, fallbacks) is critical in practice.
 - Practical skills in C++ model prototyping and Python visualization for quant research.
 
-## What we learned
+## Next steps
 - Extend from single-expiry to a full term structure (SVI / SABR).
 - Add real market option data ingestion.
 - Explore production-style calibration pipelines with robust monitoring.
